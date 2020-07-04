@@ -5,8 +5,11 @@
                     <v-icon large color="teal">mdi-home-city</v-icon>
                 </v-app-bar-nav-icon>
                     <v-toolbar-title>
-                        <span>Lend</span>
-                        <span class="teal--text">Inn</span></v-toolbar-title>
+                        <router-link to='/'>
+                            <span>Lend</span>
+                            <span class="teal--text">Inn</span>
+                        </router-link>
+                    </v-toolbar-title>
             </v-app-bar>
 
             <v-navigation-drawer app v-model="drawer">
@@ -23,6 +26,12 @@
             </v-navigation-drawer>      
       </div>
 </template>
+
+<style>
+a {
+    text-decoration: none;
+}
+</style>
 
 <script>
 export default {

@@ -12,7 +12,7 @@
                 <v-form>
                     <v-text-field v-model="login_input.email" :rules="emailRules" :counter="30" label="Email" required></v-text-field>
                     <v-text-field v-model="login_input.password" hint="Forgot password?" persistent-hint label="Password" :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'" :type="show_password ? 'text' : 'password'" @click:append="show_password = !show_password" required class="mb-5"></v-text-field>
-                    <v-btn class="mb-10">Login</v-btn> <br>
+                    <v-btn class="mb-10" v-on:click="login">Login</v-btn> <br>
                     <span>Don't have an account?</span>
                     <router-link to='/register'> Sign Up </router-link>
                 </v-form>
