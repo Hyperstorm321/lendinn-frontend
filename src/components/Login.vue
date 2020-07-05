@@ -59,7 +59,7 @@ export default {
                })
                .then(response =>{
                    this.$store.commit('setAuthentication', true)
-                    this.$router.push({ name: 'dashboard' })
+                   this.$router.push({ name: 'dashboard' })
                })
            })
         }
