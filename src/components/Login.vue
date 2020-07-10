@@ -61,6 +61,10 @@ export default {
                    this.$store.commit('setAuthentication', true)
                    this.$router.push({ name: 'dashboard' })
                })
+                .catch(error => {
+                    console.log("ERRRR:: ",error.response.data);
+                });
+        
            })
         }
     }
