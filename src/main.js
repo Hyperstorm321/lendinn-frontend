@@ -7,7 +7,11 @@ import vuetify from './plugins/vuetify'
 import Index from './components/Index.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
-import Dashboard from './components/Dashboard.vue'
+import Home from './components/Home.vue'
+import AccountSetting from './components/dashboard_storage/AccountSetting.vue'
+import ManageProperties from './components/dashboard_storage/ManageProperties.vue'
+import Reports from './components/dashboard_storage/Reports.vue'
+
 
 
 Vue.config.productionTip = false
@@ -54,16 +58,31 @@ const router = new VueRouter(
           component: Register
         },
         {
-          path: '/dashboard',
-          name: 'dashboard',
-          component: Dashboard,
+          path: '/home',
+          name: 'home',
+          component: Home,
           beforeEnter: (to, from, next) =>{
             if(store.state.authenticated == false){
-              next('/login') //next('/login') if any route
+              next('/login')
             }else{
               next()
             }
           }  
+        },
+        {
+          path: '/accountsetting',
+          name: 'accountsetting',
+          component: AccountSetting
+        },
+        {
+          path: '/manageproperties',
+          name: 'manageproperties',
+          component: ManageProperties
+        },
+        {
+          path: '/reports',
+          name: 'reports',
+          component: Reports
         },
       ]
     }

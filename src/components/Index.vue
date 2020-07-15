@@ -2,8 +2,8 @@
     <v-container>
         <v-row justify="center">
             <v-col cols="4" class="mt-10">
-                <span class="lendinn">LendInn</span> <br>
-                <span class="lendinn-desc">
+                <span class="lendinn text-all">LendInn</span> <br>
+                <span class="lendinn-desc text-all">
                     Need an apartment to rent? <br>
                     or a house to live? <br>
                     Worry no more, <br>
