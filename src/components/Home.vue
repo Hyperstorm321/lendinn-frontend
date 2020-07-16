@@ -1,5 +1,13 @@
 <template>
    <v-container>
+       <v-row>
+           <v-col cols="3" class="ml-10">
+                <v-text-field label="Search Location"></v-text-field>
+           </v-col>
+           <v-col cols="3" class="mt-4">
+               <v-btn class="primary">Search</v-btn>
+           </v-col>
+       </v-row>
                <v-row justify="center">
                      <v-card v-for="prop in allProperties" :key="prop.property_id" class="ml-5 mb-5">
                         <img :src="require(`../assets/properties/${prop.main_photo_src}`)" width="300px" height="250px">

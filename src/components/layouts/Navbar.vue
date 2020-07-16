@@ -12,7 +12,15 @@
                     </v-toolbar-title>
             </v-app-bar>
 
-            <v-navigation-drawer app v-model="drawer">
+            <v-navigation-drawer app v-model="drawer">    
+                  <v-list>
+                    <v-list-item v-for="user in userDetails" :key="user.user_id">
+                        <v-list-item-content>
+                            <v-list-item-title class="ml-15"> <img :src="require(`../../assets/profiles/${user.photo_src}`)" width="100px" height="100px" class="profile"> <br> <br> {{user.first_name}} {{user.last_name}}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+
                 <v-list>
                     <v-list-item v-on:click="home">
                         <v-list-item-action>
@@ -76,6 +84,9 @@
 a {
     text-decoration: none;
 }
+.profile {
+    border-radius: 50%;
+}
 </style>
 
 <script>
@@ -90,18 +101,19 @@ export default {
     data(){
         return{
             drawer: false,
-            first_name:'',
-            last_name:'',
-            email: '',
-            userid: '',
+            userDetails:[]
         }
     },
     mounted(){
+        let id;
         axios.get('/api/user').then(response =>{
-            this.first_name = response.data.first_name,
-            this.last_name = response.data.last_name,
-            this.email = response.data.email,
-            this.userid = response.data.user_id
+            id = response.data.user_id
+            axios.get(`api/useraccounts/${id}`).then(response =>{
+                this.userDetails = response.data
+            })
+            .catch(error =>{
+                console.log('error')
+            })
         })
         .catch(error => {
             console.log("ERRRR:: ",error.response.data);

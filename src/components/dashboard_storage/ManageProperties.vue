@@ -2,7 +2,7 @@
     <v-container>
         <h1>My Properties</h1> 
         <!-- Start of Create dialog -->
-            <v-dialog v-model="dialog" width="600">
+            <!-- <v-dialog v-model="dialog" width="600">
                 <template v-slot:activator="{ on,attrs}">
                     <v-btn color="primary" v-bind="attrs" v-on="on">Create</v-btn>
                 </template>
@@ -58,7 +58,7 @@
                             <v-btn color="primary"> Create </v-btn>
                         </v-card-actions>
                     </v-card>
-            </v-dialog>
+            </v-dialog> -->
         <!-- End of Create Dialog --> 
               <v-row justify="center" class="mt-10">
                    <v-card v-for="prop in myProperties" :key="prop.property_id" class="ml-5 mb-5">
@@ -67,7 +67,8 @@
                            {{prop.name}} <br>
                            {{prop.detailed_address}}<br> <br>
                            <v-btn class="primary mr-5">Details</v-btn>
-                           <v-btn class="error">Remove</v-btn>
+                           <v-btn class="error">Remove</v-btn> <br> <br>
+                           <v-btn class="primary">View Offers</v-btn>
                        </div>
                    </v-card>
                </v-row>
