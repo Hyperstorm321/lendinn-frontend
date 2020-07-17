@@ -1,97 +1,69 @@
 <template>
     <v-container>
         <h1 class="text-black">Reports</h1>
-        <v-row justify="center">
-            <!-- Start of Owned Properties  -->
-            <v-col cols="12">
-                <h1 class="ml-5 mb-5">List of Properties Owned</h1>
-                <v-simple-table>
-                    <template v-slot:default>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Property</th>
-                                <th>Type</th>
-                                <th>Buy/Rent</th>
-                                <th>Quantity</th>
-                                <th>Total Price</th>
-                                <th>City</th>
-                                <th>Detailed Address</th>
-                                <th>Date Acquired</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="ownedProp in ownedProperties" :key="ownedProp.key">
-                                <td>{{ownedProp.key}}</td>
-                                <td>{{ownedProp.name}}</td>
-                                <td>{{ownedProp.property_type}}</td>
-                                <td>{{ownedProp.selling_type}}</td>
-                                <td>{{ownedProp.quantity}}</td>
-                                <td>{{ownedProp.total_price}}</td>
-                                <td>{{ownedProp.city}}</td>
-                                <td>{{ownedProp.detailed_address}}</td>
-                                <td>{{ownedProp.date_acquired}}</td>
-                            </tr>
-                        </tbody>
-                    </template>
-                </v-simple-table>
-            </v-col>
-            <!-- End of Owned Properties -->
-        </v-row>
-        <v-row>
-            <v-col cols="12">
-                 <h1 class="ml-5 mb-5">Top 10 Rental Properties In Caloocan, 2020</h1>
-                <v-simple-table>
-                    <template v-slot:default>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Property</th>
-                                <th>Property Type</th>
-                                <th>Total Quantity</th>
-                                <th>Total Sale</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="topRented in topRentedProperties" :key="topRented.id">
-                                <td></td>
-                                <td>{{topRented.name}}</td>
-                                <td>{{topRented.property_type}}</td>
-                                <td>{{topRented.total_quantity}}</td>
-                                <td>{{topRented.total_sale}}</td>
-                            </tr>
-                        </tbody>
-                    </template>
-                </v-simple-table>
-            </v-col>
-        </v-row>
-           <v-row>
-            <v-col cols="12">
-                 <h1 class="ml-5 mb-5">Top 10 Sold Properties In Caloocan, 2020</h1>
-                <v-simple-table>
-                    <template v-slot:default>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Property</th>
-                                <th>Property Type</th>
-                                <th>Total Quantity</th>
-                                <th>Total Sale</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="topSold in topSoldProperties" :key="topSold.id">
-                                <td></td>
-                                <td>{{topSold.name}}</td>
-                                <td>{{topSold.property_type}}</td>
-                                <td>{{topSold.total_quantity}}</td>
-                                <td>{{topSold.total_sale}}</td>
-                            </tr>
-                        </tbody>
-                    </template>
-                </v-simple-table>
-            </v-col>
-        </v-row>
+
+        <v-container>
+
+            <v-row>
+                <v-list >
+                    <v-list-item v-on:click="listOfRentedAndBoughtProperties">
+                        <v-list-item-action>
+                            <v-icon color="teal">mdi-cash-multiple</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>List of Rented and Bought Properties</v-list-item-title> 
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item v-on:click="top10HighestRentedProperties">
+                        <v-list-item-action>
+                            <v-icon color="teal">mdi-domain</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Top 5 Highest Rented Properties in Caloocan, 2020</v-list-item-title> 
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item v-on:click="top10HighestSoldProperties">
+                        <v-list-item-action>
+                            <v-icon color="teal">mdi-home-analytics</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Top 5 Highest Sold Properties in Caloocan, 2020</v-list-item-title> 
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item v-on:click="listOfOwnedProperties" v-show="is_landlord">
+                        <v-list-item-action>
+                            <v-icon color="teal">mdi-home-city-outline</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>List of Owned Properties</v-list-item-title> 
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item v-on:click="rentedPropertiesInAMonth" v-show="is_landlord">
+                        <v-list-item-action>
+                            <v-icon color="teal">mdi-office-building</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Rented Properties in May 2020</v-list-item-title> 
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item v-on:click="soldPropertiesInAMonth" v-show="is_landlord">
+                        <v-list-item-action>
+                            <v-icon color="teal">mdi-home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Sold Properties in May 2020</v-list-item-title> 
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-row>
+
+        </v-container>
+
     </v-container>
 </template>
 
@@ -105,36 +77,45 @@ export default {
     name: 'reports',
     data(){
         return{
-            ownedProperties:[],
-            topRentedProperties:[],
-            topSoldProperties:[]
+            reports:[
+                {link: 'listOfRentedAndBoughtProperties', icon: 'mdi-cash-multiple', title: 'List of Rented and Bought Properties'},
+                {link: 'top10HighestRentedProperties', icon: 'mdi-cash-multiple', title: 'Top 10 Highest Rented Properties'},
+            ],
+            is_landlord: false
         }
     },
     mounted(){
-        this.getUserReportsPropertiesOwned()
-        this.topRented()
-        this.topSold()
+        this.getIsLandlord()
     },
     methods:{
-        getUserReportsPropertiesOwned(){
-            var user_id
+        getIsLandlord() {
             axios.get('/api/user').then(response =>{
-                user_id = response.data.user_id
-                axios.get(`api/list_of_properties_owned/${user_id}`).then(response =>{
-                    this.ownedProperties = response.data
-                    // console.log(response.data)
-                })  
+                this.is_landlord = (response.data.is_landlord == 1) ? true : false;
             })
         },
-        topRented(){
-            axios.get('api/landlord/top_10_highest_rented_properties_by_city_in_a_year/Caloocan/2020').then(response =>{
-                this.topRentedProperties = response.data
-            })
+        listOfRentedAndBoughtProperties(){
+            this.$store.commit('setAuthentication', true)
+            this.$router.push({ name: 'ListOfRentedAndBoughtProperties' })
         },
-        topSold(){
-            axios.get('api/landlord/top_10_highest_sold_properties_by_city_in_a_year/Caloocan/2020').then(response =>{
-                this.topSoldProperties = response.data
-            })
+        top10HighestRentedProperties(){
+            this.$store.commit('setAuthentication', true)
+            this.$router.push({ name: 'Top5HighestRentedProperties' })
+        },
+        top10HighestSoldProperties(){
+            this.$store.commit('setAuthentication', true)
+            this.$router.push({ name: 'Top5HighestSoldProperties' })
+        },
+        listOfOwnedProperties(){
+            this.$store.commit('setAuthentication', true)
+            this.$router.push({ name: 'ListOfOwnedProperties' })
+        },
+        rentedPropertiesInAMonth(){
+            this.$store.commit('setAuthentication', true)
+            this.$router.push({ name: 'RentedPropertiesInAMonth' })
+        },
+        soldPropertiesInAMonth(){
+            this.$store.commit('setAuthentication', true)
+            this.$router.push({ name: 'SoldPropertiesInAMonth' })
         }
     }
 }
