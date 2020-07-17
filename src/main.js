@@ -11,6 +11,7 @@ import Home from './components/Home.vue'
 import AccountSetting from './components/dashboard_storage/AccountSetting.vue'
 import ManageProperties from './components/dashboard_storage/ManageProperties.vue'
 import Reports from './components/dashboard_storage/Reports.vue'
+import ReportsLord from './components/dashboard_storage/ReportsLord.vue'
 
 
 
@@ -83,6 +84,11 @@ const router = new VueRouter(
           path: '/reports',
           name: 'reports',
           component: Reports
+        },
+        {
+          path: '/reportslord',
+          name: 'reportslord',
+          component: ReportsLord
         },
       ]
     }
